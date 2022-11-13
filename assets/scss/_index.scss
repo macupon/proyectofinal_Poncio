@@ -1,0 +1,46 @@
+$colorfondo: rgb(240, 248, 255);
+$colorborde: rgb(255, 235, 205);
+.fotos {
+    img {
+    border-radius: 50%;
+    padding: 30px;
+    width: 340px;
+    height: 340px;
+    }
+}
+.imgzoom {
+    overflow: hidden;
+}
+.img1 {
+    &:hover {
+    transform: scale(1.1);
+    transition: all 1s;
+    }
+}
+body {
+    background-color: $colorfondo;
+}
+
+.video {
+    display: flex;
+    justify-content: center;
+    margin: 15px;
+    width: 100%;
+    object-fit: cover;
+    filter: brightness(80%);
+}
+.home {
+    display: flex;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    margin-top: 30px;
+}
+.pp {
+    p{
+    display: flex;
+    justify-content: center;
+    font-family: 'Lato', sans-serif;
+    margin-top: 5px;
+    font-size: 25px;
+    }
+}
