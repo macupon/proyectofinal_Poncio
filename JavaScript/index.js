@@ -1,3 +1,7 @@
+let obj_pedido;
+let AyudaGuardar;
+let pedidoRecuperado = JSON.parse(localStorage.getItem("obj_pedido")) ;
+let ayudaRecuperada = JSON.parse(localStorage.getItem("AyudaGuardar"))
 
 
 // Definimos CLASES
@@ -58,16 +62,24 @@ class Torta {
 }
 
 // &&&&  antes de empezar &&&&&&
-// Creamos objeto vacio de la clase Torta
-const pedido = new Torta()
 
-// preguntamos si necesita ayuda
-let ayuda = prompt("Necesitas ayuda para ordenar? (Si o No)");
+// Si "AyudaGuardar" NO está en localStorage le preguntamos
+let ayuda;
+if (!ayudaRecuperada){
+    // preguntamos si necesita ayuda
+    ayuda = prompt("Necesitas ayuda para ordenar? (Si o No)");
 
+    // Comprobar si "ayuda" es si o no, y sino volver a pedir.
+    while ((ayuda.toLowerCase() != "si") && (ayuda.toLowerCase() != "no")) {
+        ayuda = prompt("Por favor indique si o no, \nNecesita ayuda?");
+    }
 
-// Comprobar si "ayuda" es si o no, y sino volver a pedir.
-while ((ayuda.toLowerCase() != "si") && (ayuda.toLowerCase() != "no")) {
-    ayuda = prompt("Por favor indique si o no, \nNecesita ayuda?");
+    // Nos guardamos si necesita ayuda
+    localStorage.setItem('AyudaGuardar', JSON.stringify(ayuda))
+}
+
+else if (ayudaRecuperada){
+    ayuda = ayudaRecuperada;
 }
 
 // Si order es "no" le damos las gracias
@@ -85,8 +97,12 @@ else if (ayuda.toLowerCase() === "si") {
         invitados = parseInt(prompt("Por favor, ingrese un numero!\nCuantas personas asistiran?"));
         }
 
+    // Creamos objeto vacio de la clase Torta
+    const pedido = new Torta()
+
     // Calculamos el TAMAÑO con el numero de invitados
     pedido.calcTamanio(invitados);
+    //Guardamos el objeto en Local Storage
     localStorage.setItem("obj_pedido", JSON.stringify(pedido));
     alert(`Su pastel tendra un tamanio ${pedido.tam.toUpperCase()}`);
 
@@ -104,6 +120,7 @@ else if (ayuda.toLowerCase() === "si") {
             pedRelleno = prompt("Por favor escoge entre:\nChocolate \nVainilla \nLimon");
         }
     };
+    //Guardamos el objeto en Local Storage
     localStorage.setItem("obj_pedido", JSON.stringify(pedido));
     alert(`Relleno ${pedido.relleno.toUpperCase()}`)
     
@@ -117,6 +134,7 @@ else if (ayuda.toLowerCase() === "si") {
         objEncontrado = pedido.bizcochos.find(element => element.sabor ===  pedBizcocho.toLowerCase());
     }
     pedido.bizcocho = objEncontrado.sabor.toLowerCase();
+    //Guardamos el objeto en Local Storage
     localStorage.setItem("obj_pedido", JSON.stringify(pedido));
         
     alert(`Bizcocho ${pedido.bizcocho.toUpperCase()}`)
