@@ -2,10 +2,10 @@
 
 // Definimos CLASES
 class Torta {
-    constructor(relleno, bizcocho, personas){
+    constructor(relleno, bizcocho, NumPersonas){
         this.relleno = relleno;
         this.bizcocho = bizcocho;
-        this.personas = personas;
+        this.NumPersonas = NumPersonas;
         this.precioBase = 600;
 
 
@@ -27,6 +27,7 @@ class Torta {
     // Definimos METODOS
     // metodo para calcular el tamanio
     calcTamanio(personas){
+        this.NumPersonas = personas;
         if (personas >= 10 && personas <= 15) {
             this.tam = "pequenio";
             } 
@@ -86,6 +87,7 @@ else if (ayuda.toLowerCase() === "si") {
 
     // Calculamos el TAMAÑO con el numero de invitados
     pedido.calcTamanio(invitados);
+    localStorage.setItem("obj_pedido", JSON.stringify(pedido));
     alert(`Su pastel tendra un tamanio ${pedido.tam.toUpperCase()}`);
 
     // 2) Obtener RELLENO de torta para rellenar propiedad "relleno" del objeto "pedido"
@@ -102,6 +104,7 @@ else if (ayuda.toLowerCase() === "si") {
             pedRelleno = prompt("Por favor escoge entre:\nChocolate \nVainilla \nLimon");
         }
     };
+    localStorage.setItem("obj_pedido", JSON.stringify(pedido));
     alert(`Relleno ${pedido.relleno.toUpperCase()}`)
     
     // 3) Obtener BIZCOCHO de torta para rellenar propiedad "bizcocho" del objeto "pedido"
@@ -114,6 +117,7 @@ else if (ayuda.toLowerCase() === "si") {
         objEncontrado = pedido.bizcochos.find(element => element.sabor ===  pedBizcocho.toLowerCase());
     }
     pedido.bizcocho = objEncontrado.sabor.toLowerCase();
+    localStorage.setItem("obj_pedido", JSON.stringify(pedido));
         
     alert(`Bizcocho ${pedido.bizcocho.toUpperCase()}`)
   
@@ -125,4 +129,6 @@ else if (ayuda.toLowerCase() === "si") {
     // 5) Resumen pedido final 
     pedido.pedidoResumen();
 
+    // guardamos el objeto completo
+    localStorage.setItem("obj_pedido", JSON.stringify(pedido));
 }
