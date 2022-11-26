@@ -8,6 +8,7 @@ class Torta {
         this.personas = personas;
         this.precioBase = 600;
 
+
         // Definimos ARRAYS
         this.rellenos = [ { sabor: "chocolate", precio: 250},
                           { sabor: "vainilla",  precio: 100},
@@ -41,11 +42,11 @@ class Torta {
         }
 
     // metodo para calcular PRECIO FINAL 
-    CalcPrecioFinal(pB, rell, biz, tam ){
-        let precioRelleno  = this.rellenos.find(element => element.sabor ===  rell).precio;
-        let precioBizcocho = this.bizcochos.find(element => element.sabor ===  biz).precio;
-        let precioTamanio  = this.tamanios.find(element => element.tam ===  tam).precio;
-        this.precioFinal   = pB + precioRelleno + precioBizcocho + precioTamanio;
+    CalcPrecioFinal(){
+        let precioRelleno  = this.rellenos.find(element => element.sabor ===  this.relleno).precio;
+        let precioBizcocho = this.bizcochos.find(element => element.sabor ===  this.bizcocho).precio;
+        let precioTamanio  = this.tamanios.find(element => element.tam ===  this.tam).precio;
+        this.precioFinal   = this.precioBase + precioRelleno + precioBizcocho + precioTamanio;
     }
 
     // metodo para resumir el pedido
@@ -118,7 +119,7 @@ else if (ayuda.toLowerCase() === "si") {
   
 
     // 4) Calcular precio final 
-    pedido.CalcPrecioFinal(pedido.precioBase, pedido.relleno, pedido.bizcocho, pedido.tam);
+    pedido.CalcPrecioFinal();
     alert(`Precio final ${pedido.precioFinal}`)
     
     // 5) Resumen pedido final 
