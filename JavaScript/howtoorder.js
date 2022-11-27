@@ -1,4 +1,5 @@
 
+
 let tamanioChica = document.getElementById("button1");
 let tamanioMediana = document.getElementById("button2");
 let tamanioGrande = document.getElementById("button3");

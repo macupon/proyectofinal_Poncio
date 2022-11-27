@@ -1,4 +1,4 @@
-// Parseamos obj_pedido y AyudaGuardar del localStorage para recuperar las propiedad del objeto pedido
+// Parseamos obj_pedido y AyudaGuardar del localStorage para recuperar las propiedades del objeto pedido de la sesion anterior
 let obj_pedido;
 let AyudaGuardar;
 let pedidoRecuperado = JSON.parse(localStorage.getItem("obj_pedido"));
@@ -65,7 +65,7 @@ class Torta {
 // &&&&  antes de empezar &&&&&&
 // Miramos si el pedidoRecuperado esta completo, si es el caso, le preguntamos si quiere realizar otro
 let resetear = false
-// SI la variable pedidoRecuperado ya ha sido almacenada en su totalidad, por lo tanto el pedido esta completo, pregunto si quiere realizar un pedido nuevo.
+// SI el obejto pedidoRecuperado ya tiene todas las propiedades definidas (esta completo), pregunto si quiere realizar un pedido nuevo.
 if (pedidoRecuperado != null && pedidoRecuperado.precioFinal){
     resetear = confirm("El pedido ya esta completado, quiere realizar uno nuevo?")
 }
@@ -95,13 +95,14 @@ if (ayuda.toLowerCase() === "no") {
     alert("Hasta pronto! Gracias por ingresar a nuestra Web");
 }
 
-// Preguntar numero invitados cuando "ayuda" es SI
+// Empezar a rellenar el objeto pedido, cuando "ayuda" es SI
 else if (ayuda.toLowerCase() === "si") {
 
     // Creamos objeto vacio de la clase Torta
     const pedido = new Torta()
 
-    // SI el cliente NO ha rellenado la propiedad invitados del objeto, entonces accede directamente a preguntar Cantidad de personas
+    // SI es la primera vez que realizamos el pedido (pedidoRecuperado no existe) o si quieremos realizar 
+    // un pedido nuevo (resetear pedido), entonces accedemos directamente a preguntar Cantidad de personas
     if ((pedidoRecuperado == null) || resetear==true){
         // 1) Obtener TAMAÑO de torta para rellenar propiedad "tam" del objeto "pedido"
         let invitados;
@@ -118,7 +119,8 @@ else if (ayuda.toLowerCase() === "si") {
         alert(`Su pastel tendra un tamanio ${pedido.tam.toUpperCase()}`);
     }
     
-    // SI la propiedad TAM del objeto pedidoRecuperado/pedido ya existe, se recupera la informacion almacenada y "salta" a la propiedad RELLENO
+    // SI la propiedad TAM del objeto pedidoRecuperado existe, la usamos para rellenar la propiedad TAM del
+    // nuevo objeto pedido y lo  mismo con la propiedad NumPersonas.
     else if (pedidoRecuperado.tam !== undefined){
         pedido.calcTamanio(pedidoRecuperado.NumPersonas)
         // tb se puede hacer asi
@@ -127,7 +129,8 @@ else if (ayuda.toLowerCase() === "si") {
     }
 
         
-    // Acceder al condicional SI el pbjeto pedidoRecuperado no existe, O SI la propiedad RELLENO del pedidoRecuperado se encuentra vacio O SI el usuario a reseatado el pedido
+    // SI el pbjeto pedidoRecuperado no existe, O SI la propiedad RELLENO del pedidoRecuperado se encuentra vacio O 
+    // SI el usuario ha reseatado el pedido
     if (pedidoRecuperado == null || (pedidoRecuperado!==null && !pedidoRecuperado.relleno )  || resetear==true){
         // 2) Obtener RELLENO de torta para rellenar propiedad "relleno" del objeto "pedido"
         let pedRelleno = prompt("Escoga un relleno:\nChocolate \nVainilla \nLimon");
@@ -147,12 +150,14 @@ else if (ayuda.toLowerCase() === "si") {
         localStorage.setItem("obj_pedido", JSON.stringify(pedido));
         alert(`Relleno ${pedido.relleno.toUpperCase()}`)
     }
-    // SI la propiedad RELLENO del objeto pedidoRecuperado/pedido ya existe, se recupera la informacion almacenada y "salta" a la propiedad BIZCOCHO
+    // SI la propiedad RELLENO del objeto pedidoRecuperado ya existe, la usamos para rellenar la propiedad relleno
+    // del objeto pedido. 
     else if (pedidoRecuperado.relleno){
         pedido.relleno = pedidoRecuperado.relleno;
     }
         
-    // Acceder al condicional SI el pbjeto pedidoRecuperado no existe, O SI la propiedad bizcocho del pedidoRecuperado se encuentra vacio O SI el usuario a reseatado el pedido
+    // SI el pbjeto pedidoRecuperado no existe, O SI la propiedad bizcocho del pedidoRecuperado se encuentra vacio O
+    // SI el usuario ha reseatado el pedido
     if (pedidoRecuperado == null || (pedidoRecuperado!==null && !pedidoRecuperado.bizcocho) || resetear==true) {
         // 3) Obtener BIZCOCHO de torta para rellenar propiedad "bizcocho" del objeto "pedido"
         let pedBizcocho = prompt("Escoga el sabor de su bizcocho:\nChocolate \nVainilla \nLimon");
@@ -164,7 +169,7 @@ else if (ayuda.toLowerCase() === "si") {
             objEncontrado = pedido.bizcochos.find(element => element.sabor ===  pedBizcocho.toLowerCase());
         }
         pedido.bizcocho = objEncontrado.sabor.toLowerCase();
-        //Guardamos el objeto en Local Storage
+        // Guardamos el objeto en Local Storage
         localStorage.setItem("obj_pedido", JSON.stringify(pedido));
             
         alert(`Bizcocho ${pedido.bizcocho.toUpperCase()}`)
@@ -181,10 +186,9 @@ else if (ayuda.toLowerCase() === "si") {
 
 
     }
-    // SI la propiedad BIZCOCHO del objeto pedidoRecuperado/pedido ya existe, se recupera la informacion almacenada y finaliza el pedido.
+    // SI la propiedad BIZCOCHO del objeto pedidoRecuperado ya existe, la usamos para rellenar la propiedad bizcocho
+    // del objeto pedido. 
     else if (pedidoRecuperado.bizcocho){
         pedido.bizcocho = pedidoRecuperado.bizcocho;
     }
-
-
 }
