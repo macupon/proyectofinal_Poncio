@@ -10,11 +10,11 @@ let idemail = document.getElementById("emailForm");
 let idmess =  document.getElementById("message"); 
 
 
-// Creamos el evento "click"
+// Creamos el evento "click" del boton, el cual tiene "envarForm" como id
 enviarForm.addEventListener("click", () => {
+    // Creamos una Array vacia, que contendra todos los campos no completados por el usuario
     let arrayForm = [];
 
-    // Creamos una Array vacia, que contendra todos los campos no completados por el usuario
     if (idname.value === ""){
         arrayForm.push(idname.placeholder)
     }
@@ -30,7 +30,7 @@ enviarForm.addEventListener("click", () => {
         alert(`Completa los campos: ${arrayForm}`);
     }
 
-    // Si la array se encuentra vacia al enviar el formulario, se modificara el color del boton "send" y el titulo
+    // Si la array se encuentra vacia al enviar el formulario, se modificara el color del boton "send" y el titulo de la form
     else {
         contactmilo.innerText = "Formulario Enviado!"
         enviarForm.style = "background-color: #f8a5c2"
