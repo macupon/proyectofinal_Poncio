@@ -25,19 +25,20 @@ enviarForm.addEventListener("click", () => {
         arrayForm.push(idmess.placeholder)
     }
 
-    // Pedimos que complete los campos vacios
-    if (arrayForm.length != 0 ) {
-        alert(`Completa los campos: ${arrayForm}`);
-    }
+ 
 
-    // Si la array se encuentra vacia al enviar el formulario, se modificara el color del boton "send" y el titulo de la form
-    else {
-        contactmilo.innerText = "Formulario Enviado!"
-        enviarForm.style = "background-color: #f8a5c2"
-    }
-
-
+    arrayForm.length != 0 ? alert(`Completa los campos: ${arrayForm}`) : contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #f8a5c2";
 
 })
 
+// arrayForm.length != 0 ? alert(`Completa los campos: ${arrayForm}`) : contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #f8a5c2";
+   // Pedimos que complete los campos vacios
+    // if (arrayForm.length != 0 ) {
+    //     alert(`Completa los campos: ${arrayForm}`);
+    // }
 
+    // Si la array se encuentra vacia al enviar el formulario, se modificara el color del boton "send" y el titulo de la form
+    // else {
+    //     contactmilo.innerText = "Formulario Enviado!"
+    //     enviarForm.style = "background-color: #f8a5c2"
+    // }
