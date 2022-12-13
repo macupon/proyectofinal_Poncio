@@ -14,20 +14,22 @@ let idmess =  document.getElementById("message");
 enviarForm.addEventListener("click", () => {
     // Creamos una Array vacia, que contendra todos los campos no completados por el usuario
     let arrayForm = [];
-
-    if (idname.value === ""){
-        arrayForm.push(idname.placeholder)
-    }
-    if (idemail.value ===""){
-        arrayForm.push(idemail.placeholder)
-    }
-    if (idmess.value === "") {
-        arrayForm.push(idmess.placeholder)
-    }
+    idname.value === "" && arrayForm.push(idname.placeholder);
+    idemail.value === "" && arrayForm.push(idemail.placeholder);
+    idmess.value === "" && arrayForm.push(idmess.placeholder);
+    // if (idname.value === ""){
+    //     arrayForm.push(idname.placeholder)
+    // }
+    // if (idemail.value ===""){
+    //     arrayForm.push(idemail.placeholder)
+    // }
+    // if (idmess.value === "") {
+    //     arrayForm.push(idmess.placeholder)
+    // }
 
  
 
-    arrayForm.length != 0 ? alert(`Completa los campos: ${arrayForm}`) : contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #f8a5c2";
+    arrayForm.length != 0 ? alert(`Completa los campos: ${arrayForm}`) : (contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #778beb");
 
 })
 

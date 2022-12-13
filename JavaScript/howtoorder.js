@@ -1,20 +1,65 @@
 // Parseamos obj_pedido y AyudaGuardar del localStorage para recuperar las propiedades del objeto pedido de la sesion anterior
-let obj_pedido;
-let AyudaGuardar;
-let pedidoRecuperado = JSON.parse(localStorage.getItem("obj_pedido"));
-let ayudaRecuperada = JSON.parse(localStorage.getItem("AyudaGuardar"));
 
+let obj_pedido;
+let recuperar_pedido;
+let pedidoRecuperado;
+
+
+// Comprobar si obj_pedido existe
+if (localStorage.getItem("obj_pedido")){
+    pedidoRecuperado = JSON.parse(localStorage.getItem("obj_pedido"));
+
+    Swal.fire({
+        title: 'Quieres recuperar el último pedido?',
+        showDenyButton: true,
+        confirmButtonText: 'Recuperar',
+        denyButtonText: `Nuevo pedido`,
+    }).then((result) => {
+        /* Read more about isConfirmed, isDenied below */
+        if (result.isConfirmed) {
+            document.getElementById("Inp_invitados").value = pedidoRecuperado.NumPersonas
+
+            //recupero relleno
+            let rell_recup = pedidoRecuperado.Rell_ArrayObj.find(element => element.id == pedidoRecuperado.relleno).id
+            document.getElementById(rell_recup).checked = true
+        
+            let biz_recup = pedidoRecuperado.Biz_ArrayObj.find(element => element.id == pedidoRecuperado.bizcocho).id
+            document.getElementById(biz_recup).checked = true
+        
+            let cov_recup = pedidoRecuperado.Cov_ArrayObj.find(element => element.id == pedidoRecuperado.cover).id
+            document.getElementById(cov_recup).checked = true
+        
+            let deco_recup = pedidoRecuperado.Dec_ArrayObj.find(element => element.id == pedidoRecuperado.deco).id
+            document.getElementById(deco_recup).checked = true
+            
+            //PICKUP-DELIVERY 
+            pedidoRecuperado.PickDel == "pickup" ? (document.getElementById("butt_del").checked = false, document.getElementById("butt_pick").checked = true):
+                                                   (document.getElementById("butt_del").checked = true,  document.getElementById("butt_pick").checked = false);
+        
+            document.getElementById("DKK_total").innerText = pedidoRecuperado.precioFinal + " DKK";
+            document.getElementById("EUR_total").innerText = pedidoRecuperado.precioFinal_EUR + " EUR";
+
+        // Swal.fire('Saved!', '', 'success')
+        } else if (result.isDenied) {
+            localStorage.clear(obj_pedido)
+        // Swal.fire('Changes are not saved', '', 'info')
+        }
+    })
+
+    
+}
 
 // Definimos CLASES
 class Torta {
-    constructor(relleno, bizcocho, NumPersonas, cover, deco, PickDel){
+    constructor(relleno, bizcocho, NumPersonas, cover, deco, PickDel, precioFinal_EUR){
         this.relleno = relleno;
         this.bizcocho = bizcocho;
         this.cover = cover;
-        this.deo = deco;
-        this.PickDel = PickDel
+        this.deco = deco;
+        this.PickDel = PickDel;
         this.NumPersonas = NumPersonas;
         this.precioBase = 600;
+        this.precioFinal_EUR = precioFinal_EUR;
 
 
         // Definimos ARRAYS
@@ -26,7 +71,7 @@ class Torta {
                          ]
          
         this.Biz_ArrayObj = [  {id:'VS', nombre: 'Vanilla sponge', precio: 100},
-                          {id:'DC', nombre: 'Dark Chocolate sponge', precio: 100},
+                          {id:'CS', nombre: 'Dark Chocolate sponge', precio: 100},
                           {id:'BV', nombre: 'Berries-Vanilla sponge', precio: 100},
                           {id:'LV', nombre: 'Lemon-Vanilla sponge', precio: 100},
                           {id:'RV', nombre: 'Red Velvet sponge', precio: 100}
@@ -94,12 +139,26 @@ class Torta {
         let ped_cov = this.Cov_ArrayObj.find(element => element.id ===  this.cover).nombre;
         let ped_deco = this.Dec_ArrayObj.find(element => element.id ===  this.deco).nombre;
         
-        confirm("Enviar el siguiente pedido:\n\ttamano: "+ ped_tam
-                                         + "\n\tbizcocho: "+ ped_biz
-                                         + "\n\trelleno: " + ped_rell
-                                         + "\n\tcover " + ped_cov
-                                         + "\n\tdeoración: " + ped_deco
-                                         + "\n\nPrecio final: "+ this.precioFinal +"Krs.")
+        Swal.fire({
+            title: 'Está seguro que desea enviar el pedido?',
+            text: "Resumen del pedido pedido:\n\ttamano: "+ ped_tam
+                                        + "\n\tbizcocho: "+ ped_biz
+                                        + "\n\trelleno: " + ped_rell
+                                        + "\n\tcover " + ped_cov
+                                        + "\n\tdecoración: " + ped_deco
+                                        + "\n\nPrecio final: "+ this.precioFinal +"Krs.",
+            showDenyButton: true,
+            showCancelButton: false,
+            confirmButtonText: 'Enviar!',
+            denyButtonText: `Aun no`,
+            }).then((result) => {
+            
+            if (result.isConfirmed) {
+            Swal.fire('Gracias por realizar su pedido!', '', 'success')
+            } else if (result.isDenied) {
+            // Swal.fire('Pedido no Guardado', '', 'info')
+            }
+  })
     }
 
 }
@@ -108,7 +167,7 @@ class Torta {
 
 ////////////////////////////////////////////////////////////////////////
 // Activamos el boton que toca por tamanio
-let inp_box_inp = document.getElementById("Inp_invitados")
+let inp_box_inp = document.getElementById("Inp_invitados");
 let tamanioChica = document.getElementById("but_10x15");
 let tamanioMediana = document.getElementById("but_15x15");
 let tamanioGrande = document.getElementById("but_20x15");
@@ -116,19 +175,19 @@ let tamanioGrande = document.getElementById("but_20x15");
 inp_box_inp.addEventListener('input',  () => {
     let inv = inp_box_inp.value
     if (inv<=5) {
-        tamanioChica.style = "background-color: #ff6b81"
+        tamanioChica.style = "background-color: #c44569"
         tamanioMediana.style = "background-color: #ffffff"
         tamanioGrande.style = "background-color: #ffffff"
     }
     else if (inv > 5 && inv <= 15) {
         tamanioChica.style = "background-color: #ffffff"
-        tamanioMediana.style = "background-color: #ff6b81"
+        tamanioMediana.style = "background-color: #c44569"
         tamanioGrande.style = "background-color: #ffffff"
     }
-    else if (inv > 15 && inv <= 25) {
+    else if (inv > 15) {
         tamanioChica.style = "background-color: #ffffff"
         tamanioMediana.style = "background-color: #ffffff"
-        tamanioGrande.style = "background-color: #ff6b81"
+        tamanioGrande.style = "background-color: #c44569"
     }
 });
 ////////////////////////////////////////////////////////////////////////
@@ -161,140 +220,63 @@ calc.addEventListener("click", () => {
     pedido.cover = card_cov.value
     pedido.deco = card_deco.value
     pedido.PickDel = but_del.value
+    
 
     // checks antes de calcular precio final
     // Nos aseguramos que invitados es un numero
     if (isNaN(invitados) ) {
-        alert("Por favor, el numero de invitados tiene que ser un numero");
-        // borde input rojo
+        Swal.fire({
+            title: 'El numero de invitados tiene que ser un numero!',
+            icon: 'error',
+            confirmButtonText: 'Cool'
+          })
+        
     }
     else if (invitados>25) {
-        alert("Para esta cantidad de invitados mejor envíanos un e-amil");
+        Swal.fire({
+            title: 'Para más de 25 invitados, por favor envíanos un e-mail',
+            text: 'milocakery@gmail.com',
+            icon: 'info',
+            confirmButtonText: 'Cool'
+          })
     }
     else {
         // 4) Calcular precio final 
         pedido.CalcPrecioFinal();
+        DKK_calc_total.innerText = pedido.precioFinal + "DKK";
+
+
+        fetch('https://api.exchangerate-api.com/v4/latest/DKK')
+        .then((response) => response.json())
+        .then(data => {
+            let exchangeRate = data.rates.EUR
+            let precioEUR = pedido.precioFinal * exchangeRate
+            EUR_calc_total.innerText = precioEUR + " EUR";
+            pedido.precioFinal_EUR = precioEUR;
+            localStorage.setItem("obj_pedido", JSON.stringify(pedido))
+            });
+
+        
 
         // Confirmar pedido
-        pedido.pedidoResumen();
+        let res = pedido.pedidoResumen();
+    
     }
     
-    DKK_calc_total.innerText = pedido.precioFinal + "DKK";
-
-    // alert(convertDKK2EUR(pedido.precioFinal).then())
 
 
-    // fetch('https://api.exchangerate-api.com/v4/latest/DKK')
-    // .then((response) => response.json())
-    // .then(data => {
-    //     let exchangeRate = data.rates.EUR
-    //     let precioEUR = pedido.precioFinal * exchangeRate
-    //     EUR_calc_total.innerText = precioEUR + "EUR";
-    //     });
-
-    // const precioEUR = convertDKK2EUR(pedido.precioFinal)
-    // alert(exchangeRate)
-
-    // EUR_calc_total.innerText = precioEUR + "EUR";
-    
 });
+
 ////////////////////////////////////////////////////////////////////////
 
-let butt_delivery = document.getElementById("butt_del")
-let butt_pickup = document.getElementById("butt_pick")
+
 let input_dirs = document.getElementById("Inp_direccion")
 
-butt_del.addEventListener("click", () => {
-    input_dirs.disabled = false
-})
-butt_pickup.addEventListener("click", () => {
-    input_dirs.disabled = true
-})
+
 
 let butt_calc_delivery = document.getElementById("calc_delivery")
 
 ////////////////////////////////////////////////////////////////////////
-
-// function convertDKK2EUR(amountDKK){ 
-//     const options = {
-//         method: 'GET',
-//         headers: {
-//             'X-RapidAPI-Key': '845a3cd433msh5ec8d780bc3f28ap117888jsnbeb8996795af',
-//             'X-RapidAPI-Host': 'currencyconverter.p.rapidapi.com'
-//         }
-//     };
-
-//         fetch('https://currencyconverter.p.rapidapi.com/?to=EUR&from=DKK&from_amount='+`${amountDKK}`, options)
-//         .then((response) => response.json())
-//         .then(response => {
-//             const convertedAmount = response.to_amount
-//             return convertedAmount
-//         })
-//         .catch(err => console.error(err));
-// }
-// alert(console.log(fetch('https://api.exchangerate-api.com/v4/latest/DKK')
-//                     .then((response) => response.json())
-//                     .then((response) => {console.log(response.rates.EUR)})
-//                     ));
-
-// function convertDKK2EUR(amountDKK) { 
-//     let convertedAmount 
-//     fetch('https://api.exchangerate-api.com/v4/latest/DKK')
-//     .then((response) => response.json())
-//     .then(data => {
-//         const exchangeRate = data.rates.EUR
-//         convertedAmount = amountDKK * exchangeRate
-//         console.log(convertedAmount)
-//         console.log(typeof convertedAmount)
-//         console.log(data)
-//         return data
-//     })
-//     .catch(err => console.error(err));
-// }
-
-
-// console.log(convertDKK2EUR(15).rates.EUR)
-
-
-
-
-
-// alert(fetch('https://currencyconverter.p.rapidapi.com/?to=EUR&from=DKK&from_amount='+`${amountDKK}`))
-
-////////////////////////////////////////////////////////////////////////
-
-
-
-
-
-
-
-
-let exchangeRate
-fetch('https://api.exchangerate-api.com/v4/latest/DKK')
-.then((response) => response.json())
-.then(data => {
-    let exchangeRate = data.rates.EUR;
-    let precioEUR = exchangeRate*(pedido.precioFinal)
-    exchangeRate = document.createElement(exchangeRate);
-    EUR_calc_total.innerText = precioEUR + "EUR";
-    
-    });
-// const precioEUR = exchangeRate*(pedido.precioFinal)
-alert(exchangeRate)
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

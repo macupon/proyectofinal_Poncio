@@ -11,6 +11,7 @@
       <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
       <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
       <link rel="stylesheet" href="../assets/css/style.css">
+      <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
   </head>
   <body class="container-fluid">
@@ -95,7 +96,7 @@
       <div class="delivery">
         <h1>Cake Size</h1>
         <div>
-          <input type="number" id="Inp_invitados">
+          <input type="number" id="Inp_invitados" value="10">
         </div>
         <div class="buttons">
           <input label="10x15" type="radio" name="Size" value="peque" checked id="but_10x15">
@@ -111,23 +112,23 @@
               <div id="card_filling_txt" class="card-text">
                 <div id="prova"> 
                   <label for="WB">
-                    <input id="rad1" type="radio" name="relleno" value="WCB" checked="checked">
+                    <input id="WCB" type="radio" name="relleno" value="WCB" checked>
                     White Chocolate Buttercream
                   </label>
                   <label for="DB">
-                    <input type="radio" name="relleno" value="DCB">
+                    <input id="DCB" type="radio" name="relleno" value="DCB">
                     Dark Chocolate Buttercream
                   </label>
                   <label for="BB">
-                    <input type="radio" name="relleno" value="BB">
+                    <input id="BB" type="radio" name="relleno" value="BB">
                     Berries Buttercream
                   </label> 
                   <label for="VB">
-                    <input type="radio" name="relleno" value="VB">
+                    <input id="VB" type="radio" name="relleno" value="VB">
                     Vanilla Buttercream
                   </label>
                   <label for="LB">
-                    <input type="radio" name="relleno" value="LB"> 
+                    <input id="LB" type="radio" name="relleno" value="LB"> 
                     Lemon Buttercream
                   </label>
                 </div>
@@ -141,23 +142,23 @@
             <div class="card-text">
               <div>
                 <label for="VS">
-                  <input type="radio" name="Sponge" value="VS" checked="checked">
+                  <input id="VS" type="radio" name="Sponge" value="VS" checked="checked">
                   Vanilla Sponge
                 </label>
                 <label for="CS">
-                  <input type="radio" name="Sponge" value="CS">
+                  <input id="CS" type="radio" name="Sponge" value="CS">
                   Chocolate Sponge
                 </label>
                 <label for="BVS">
-                  <input type="radio" name="Sponge" value="BV">
+                  <input id="BV" type="radio" name="Sponge" value="BV">
                   Berries/Vanilla Sponge
                 </label> 
-                <label for="LVS">
-                  <input type="radio" name="Sponge" value="LV">
+                <label for="LV">
+                  <input id="LV" type="radio" name="Sponge" value="LV">
                   Lemon/Vanilla Sponge
                 </label>
                 <label for="RVS">
-                  <input type="radio" name="Sponge" value="RV">
+                  <input id="RV" type="radio" name="Sponge" value="RV">
                   Red Velvet Sponge
                 </label>
               </div>
@@ -171,23 +172,23 @@
               <div class="card-text">
                 <div>
                   <label for="VS">
-                    <input type="radio" name="cover" value="NB" checked="checked">
+                    <input id="NB" type="radio" name="cover" value="NB" checked="checked">
                     Naked + Buttercream<i></i>              
                   </label>
                   <label for="CS">
-                    <input type="radio" name="cover" value="B">
+                    <input id="B" type="radio" name="cover" value="B">
                     Buttercream
                   </label>
                   <label for="BVS">
-                    <input type="radio" name="cover" value="N">
+                    <input id="N" type="radio" name="cover" value="N">
                     Naked Cake
                   </label> 
                   <label for="LVS">
-                    <input type="radio" name="cover" value="F">
+                    <input id="F" type="radio" name="cover" value="F">
                     Fondant
                   </label>
                   <label for="RVS">
-                    <input type="radio" name="cover" value="G">
+                    <input id="G" type="radio" name="cover" value="G">
                     Ganache
                   </label>
                 </div>
@@ -201,23 +202,23 @@
             <div class="card-text">
               <div>
                 <label for="VS">
-                  <input type="radio" name="deco" value="R" checked="checked">
+                  <input id="R" type="radio" name="deco" value="R" checked="checked">
                   RainBows
                 </label>
                 <label for="CS">
-                  <input type="radio" name="deco" value="F">
+                  <input id="F" type="radio" name="deco" value="F">
                   Flowers
                 </label>
                 <label for="BVS">
-                  <input type="radio" name="deco" value="L">
+                  <input id="L" type="radio" name="deco" value="L">
                   Letter Cake
                 </label> 
                 <label for="LVS">
-                  <input type="radio" name="deco" value="M">
+                  <input id="M" type="radio" name="deco" value="M">
                   Minimalistic
                 </label>
                 <label for="RVS">
-                  <input type="radio" name="deco" value="T">
+                  <input id="T" type="radio" name="deco" value="T">
                   Theme Cake
                 </label>
               </div>
@@ -273,6 +274,9 @@
     </div>
     </footer>
     <script src="../JavaScript/howtoorder.js"></script>
+    <!-- <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+    <!-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script> -->
+
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>AOS.init();</script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
