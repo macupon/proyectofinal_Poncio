@@ -106,8 +106,8 @@
           <p class="cake_size">Cake Size</p>
         </div>
         <div class="buttons">
-          <input label="10x15" type="radio" name="Size" value="peque" checked id="but_10x15">
-          <input label="15x15" type="radio" name="Size" value="mediano" id="but_15x15">
+          <input label="10x15" type="radio" name="Size" value="peque" id="but_10x15">
+          <input label="15x15" type="radio" name="Size" value="mediano" id="but_15x15" checked>
           <input label="20x15" type="radio" name="Size" value="grande" id="but_20x15">
         </div>
       </div> 
@@ -184,7 +184,7 @@
                   </label>
                   <label for="CS">
                     <input id="B" type="radio" name="cover" value="B">
-                    Buttercream
+                    Chocolate buttercream
                   </label>
                   <label for="BVS">
                     <input id="N" type="radio" name="cover" value="N">
@@ -245,12 +245,17 @@
           <p id="text_PrecioDelivery"></p>
         </div>
       </div>
-      <div class="delivery_class">
-        <input label="calculate" type="button" name="calculate" value="calcular" id="calc">
-      </div>
+
       <div class="div_precio_final">
-        <p id="DKK_total" class="precio_final"> 0 DKK</p>
-        <p id="EUR_total" class="precio_final"> 0 EUR</p>
+        <div>
+          <p id="DKK_total" class="precio_final">Precio:  1100 DKK</p>
+        </div>
+        <div>
+          <p id="EUR_total" class="precio_final"> (147.4 EUR)</p>
+        </div>
+      </div>
+      <div class="delivery_class">
+        <input label="calculate" type="button" name="calculate" value="ENVIAR" id="calc">
       </div>
       <div data-aos="fade-up" class="titulos">
         <h2>Anywhere, Anytime</h2>

@@ -325,6 +325,7 @@ body {
   font-size: 18px;
   font-family: 'lato', sans-serif;
   text-transform: uppercase;
+  margin-top: 25px;
   }
   
   .delivery_class {
@@ -336,16 +337,29 @@ body {
     margin-bottom: auto;
   }
   
-  .precio_final{
+
+
+  /* .precio_final_EUR{
     font-size: 18px;
     font-family: 'lato', sans-serif;
     text-transform: uppercase;
     font-weight: 1000;
-    margin: 10px;
-  }
+    margin-top: auto;
+  } */
+
   .div_precio_final  {
     display: flex;
     justify-content: center;
-    margin: 20px;
-  
+    align-items: center;
+  }
+  #EUR_total{
+    font-size: 20px;
+  }
+  .precio_final{
+    font-size: 30px;
+    font-family: 'lato', sans-serif;
+    text-transform: uppercase;
+    font-weight: 1000;
+    margin: 10px;
+    margin-bottom: auto;
   }

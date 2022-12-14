@@ -41,8 +41,8 @@ if (localStorage.getItem("obj_pedido")){
             pedidoRecuperado.PickDel == "pickup" ? (document.getElementById("butt_del").checked = false, document.getElementById("butt_pick").checked = true):
                                                    (document.getElementById("butt_del").checked = true,  document.getElementById("butt_pick").checked = false);
         
-            document.getElementById("DKK_total").innerText = pedidoRecuperado.precioFinal + " DKK";
-            document.getElementById("EUR_total").innerText = pedidoRecuperado.precioFinal_EUR + " EUR";
+            document.getElementById("DKK_total").innerText = "Precio:  "+pedidoRecuperado.precioFinal + " DKK";
+            document.getElementById("EUR_total").innerText = "("+pedidoRecuperado.precioFinal_EUR + " EUR)";
 
         // Swal.fire('Saved!', '', 'success')
         } else if (result.isDenied) {
@@ -55,45 +55,46 @@ if (localStorage.getItem("obj_pedido")){
 
 // Definimos CLASES
 class Torta {
-    constructor(relleno, bizcocho, NumPersonas, cover, deco, PickDel, precioFinal_EUR){
+    constructor(relleno, bizcocho, NumPersonas, cover, deco, PickDel, precioFinal_EUR, precioDelivery){
         this.relleno = relleno;
         this.bizcocho = bizcocho;
         this.cover = cover;
         this.deco = deco;
         this.PickDel = PickDel;
         this.NumPersonas = NumPersonas;
-        this.precioBase = 600;
+        this.precioBase = 200;
         this.precioFinal_EUR = precioFinal_EUR;
+        this.precioDelivery = 0
         
 
 
         // Definimos ARRAYS
         this.Rell_ArrayObj = [ {id:'WCB', nombre: 'White Chocolate Buttercream', precio: 100},
-                          {id:'DCB', nombre: 'Dark Chocolate Buttercream', precio: 100},
-                          {id:'BB',  nombre: 'Berries Buttercream', precio: 100},
-                          {id:'VB',  nombre: 'Vanilla Buttercream', precio: 100},
-                          {id:'LB',  nombre: 'Lemon Buttercream', precio: 100}
+                          {id:'DCB', nombre: 'Dark Chocolate Buttercream', precio: 200},
+                          {id:'BB',  nombre: 'Berries Buttercream', precio: 300},
+                          {id:'VB',  nombre: 'Vanilla Buttercream', precio: 400},
+                          {id:'LB',  nombre: 'Lemon Buttercream', precio: 500}
                          ]
          
         this.Biz_ArrayObj = [  {id:'VS', nombre: 'Vanilla sponge', precio: 100},
-                          {id:'CS', nombre: 'Dark Chocolate sponge', precio: 100},
-                          {id:'BV', nombre: 'Berries-Vanilla sponge', precio: 100},
-                          {id:'LV', nombre: 'Lemon-Vanilla sponge', precio: 100},
-                          {id:'RV', nombre: 'Red Velvet sponge', precio: 100}
+                          {id:'CS', nombre: 'Dark Chocolate sponge', precio: 200},
+                          {id:'BV', nombre: 'Berries-Vanilla sponge', precio: 300},
+                          {id:'LV', nombre: 'Lemon-Vanilla sponge', precio: 400},
+                          {id:'RV', nombre: 'Red Velvet sponge', precio: 500}
                         ]
          
         this.Cov_ArrayObj = [ {id:'NB', nombre: 'Naked Buttercream', precio: 100},
-                         {id:'B',  nombre: 'Dark/White chocolate buttercream', precio: 100},
-                         {id:'N',  nombre: 'Naked', precio: 100},
-                         {id:'F', nombre: 'Fondant', precio: 100},
-                         {id:'G', nombre: 'Ganache', precio: 100}
+                         {id:'B',  nombre: 'Dark/White chocolate buttercream', precio: 200},
+                         {id:'N',  nombre: 'Naked', precio: 300},
+                         {id:'F', nombre: 'Fondant', precio: 400},
+                         {id:'G', nombre: 'Ganache', precio: 500}
                         ]
          
-        this.Dec_ArrayObj = [ {id:'F', nombre: 'Flowers', precio: 100},
-                         {id:'R',  nombre: 'Rainbows', precio: 100},
-                         {id:'L',  nombre: 'Letter cake', precio: 100},
-                         {id:'M', nombre: 'Minimalistic', precio: 100},
-                         {id:'T', nombre: 'Thematic', precio: 100}
+        this.Dec_ArrayObj = [ {id:'R',  nombre: 'Rainbows', precio: 100},
+                        {id:'F', nombre: 'Flowers', precio: 200},
+                         {id:'L',  nombre: 'Letter cake', precio: 300},
+                         {id:'M', nombre: 'Minimalistic', precio: 400},
+                         {id:'T', nombre: 'Thematic', precio: 500}
                         ]
 
 
@@ -133,7 +134,8 @@ class Torta {
                                              + precioBizcocho
                                              + precioCover
                                              + precioDeco
-                                             + precioTamanio;
+                                             + precioTamanio
+                                             + this.precioDelivery;
     }
 
     // metodo para resumir el pedido
@@ -163,7 +165,7 @@ class Torta {
             } else if (result.isDenied) {
             // Swal.fire('Pedido no Guardado', '', 'info')
             }
-  })
+            })
     }
 
 }
@@ -203,10 +205,10 @@ let butt_calc = document.getElementById("calc");
 let DKK_calc_total= document.getElementById("DKK_total")
 let EUR_calc_total= document.getElementById("EUR_total")
 
-calc.addEventListener("click", () => {
-    
-    // Creamos objeto vacio de la clase Torta
-    const pedido = new Torta()
+// Creamos objeto vacio de la clase Torta
+const pedido = new Torta()
+
+window.addEventListener("change", () => {
 
     // Leer numero de invitados desde el box input
     let invitados = parseInt(document.getElementById("Inp_invitados").value)
@@ -226,6 +228,8 @@ calc.addEventListener("click", () => {
     pedido.cover = card_cov.value
     pedido.deco = card_deco.value
     pedido.PickDel = but_del.value
+    if (pedido.PickDel=="delivery") {pedido.precioDelivery=150}
+    if (pedido.PickDel=="pickup") {pedido.precioDelivery=0}
     
     // checks antes de calcular precio final
     // Nos aseguramos que invitados es un numero
@@ -248,7 +252,7 @@ calc.addEventListener("click", () => {
     else {
         // 4) Calcular precio final 
         pedido.CalcPrecioFinal();
-        DKK_calc_total.innerText = pedido.precioFinal + "DKK";
+        DKK_calc_total.innerText = "Precio:  " + pedido.precioFinal + "DKK";
 
 
         fetch('https://api.exchangerate-api.com/v4/latest/DKK')
@@ -256,64 +260,18 @@ calc.addEventListener("click", () => {
         .then(data => {
             let exchangeRate = data.rates.EUR
             let precioEUR = pedido.precioFinal * exchangeRate
-            EUR_calc_total.innerText = precioEUR + " EUR";
+            EUR_calc_total.innerText = "(" + precioEUR.toFixed(1) + " EUR)";
             pedido.precioFinal_EUR = precioEUR;
             localStorage.setItem("obj_pedido", JSON.stringify(pedido))
             });
-
-        
-
-        // Confirmar pedido
-        let res = pedido.pedidoResumen();
     
     }
-    
-
 
 });
 
+calc.addEventListener("click", () => {
+    // Confirmar pedido
+    pedido.pedidoResumen();
+})
+
 ////////////////////////////////////////////////////////////////////////
-
-
-// let tamanioChica = document.getElementById("button1");
-// let tamanioMediana = document.getElementById("button2");
-// let tamanioGrande = document.getElementById("button3");
-
-// tamanioChica.addEventListener("click", () => {
-//         tamanioChica.style = "background-color: #ff6b81"
-//     setTimeout(() => {
-//         tamanioGrande.style = "background-color: #ffffff"
-//         tamanioMediana.style = "background-color: #ffffff"
-//     }, 2000);
-// });
-// tamanioMediana.addEventListener("click", () => {
-//     tamanioMediana.style = "background-color: #ff6b81"
-//     setTimeout(() => {
-//         tamanioChica.style = "background-color: #ffffff"
-//         tamanioGrande.style = "background-color: #ffffff"
-//     }, 2000);
-// });
-// tamanioGrande.addEventListener("click", () => {
-//     tamanioGrande.style = "background-color: #ff6b81"
-//     setTimeout(() => {
-//         tamanioChica.style = "background-color: #ffffff"
-//         tamanioMediana.style = "background-color: #ffffff"
-//     }, 2000);
-// });
-
-// let pickup = document.getElementById("pickup");
-// let delivery = document.getElementById("delivery");
-
-// pickup.addEventListener("click", () => {
-//     pickup.style = "background-color: #ff6b81"
-// setTimeout(() => {
-//     delivery.style = "background-color: #ffffff"
-// }, 2000);
-// });
-// delivery.addEventListener("click", () => {
-// delivery.style = "background-color: #ff6b81"
-// setTimeout(() => {
-//     pickup.style = "background-color: #ffffff"
-// }, 2000);
-// });
-
