@@ -17,22 +17,27 @@ if (localStorage.getItem("obj_pedido")){
     }).then((result) => {
         /* Read more about isConfirmed, isDenied below */
         if (result.isConfirmed) {
-            document.getElementById("Inp_invitados").value = pedidoRecuperado.NumPersonas
+            document.getElementById("Inp_invitados").value = pedidoRecuperado.NumPersonas;
 
-            //recupero relleno
+            //recupero RELLENO
             let rell_recup = pedidoRecuperado.Rell_ArrayObj.find(element => element.id == pedidoRecuperado.relleno).id
             document.getElementById(rell_recup).checked = true
-        
+            //recupero BIZCOCHO
             let biz_recup = pedidoRecuperado.Biz_ArrayObj.find(element => element.id == pedidoRecuperado.bizcocho).id
             document.getElementById(biz_recup).checked = true
-        
+            //recupero COBERTURA
             let cov_recup = pedidoRecuperado.Cov_ArrayObj.find(element => element.id == pedidoRecuperado.cover).id
             document.getElementById(cov_recup).checked = true
-        
+            //recupero DECORACION
             let deco_recup = pedidoRecuperado.Dec_ArrayObj.find(element => element.id == pedidoRecuperado.deco).id
             document.getElementById(deco_recup).checked = true
+            //recupero SIZE
+            pedidoRecuperado.tam == "pequenio" ? (tamanioChica.checked = true, tamanioMediana.checked = false, tamanioGrande.checked = false) : (pedidoRecuperado.tam == "mediano"
+                                                  ? (tamanioMediana.checked = true, tamanioChica.checked = false, tamanioGrande.checked = false) : 
+                                                    (tamanioGrande.checked = true, tamanioChica.checked = false, tamanioMediana.checked = false));
+
             
-            //PICKUP-DELIVERY 
+            //recupero PICKUP-DELIVERY 
             pedidoRecuperado.PickDel == "pickup" ? (document.getElementById("butt_del").checked = false, document.getElementById("butt_pick").checked = true):
                                                    (document.getElementById("butt_del").checked = true,  document.getElementById("butt_pick").checked = false);
         
@@ -45,7 +50,6 @@ if (localStorage.getItem("obj_pedido")){
         // Swal.fire('Changes are not saved', '', 'info')
         }
     })
-
     
 }
 
@@ -60,6 +64,7 @@ class Torta {
         this.NumPersonas = NumPersonas;
         this.precioBase = 600;
         this.precioFinal_EUR = precioFinal_EUR;
+        
 
 
         // Definimos ARRAYS
@@ -176,20 +181,21 @@ inp_box_inp.addEventListener('input',  () => {
     let inv = inp_box_inp.value
     if (inv<=5) {
         tamanioChica.style = "background-color: #c44569"
-        tamanioMediana.style = "background-color: #ffffff"
-        tamanioGrande.style = "background-color: #ffffff"
+        tamanioMediana.style = "background-color: #a5b1c2; color: #ececec"
+        tamanioGrande.style = "background-color: #a5b1c2; color: #ececec"
     }
     else if (inv > 5 && inv <= 15) {
-        tamanioChica.style = "background-color: #ffffff"
+        tamanioChica.style = "background-color: #a5b1c2; color: #ececec"
         tamanioMediana.style = "background-color: #c44569"
-        tamanioGrande.style = "background-color: #ffffff"
+        tamanioGrande.style = "background-color: #a5b1c2; color: #ececec"
     }
     else if (inv > 15) {
-        tamanioChica.style = "background-color: #ffffff"
-        tamanioMediana.style = "background-color: #ffffff"
+        tamanioChica.style = "background-color: #a5b1c2; color: #ececec"
+        tamanioMediana.style = "background-color: #a5b1c2; color: #ececec"
         tamanioGrande.style = "background-color: #c44569"
     }
 });
+
 ////////////////////////////////////////////////////////////////////////
 
 // leer tamaño - solo para boton ahora
@@ -221,7 +227,6 @@ calc.addEventListener("click", () => {
     pedido.deco = card_deco.value
     pedido.PickDel = but_del.value
     
-
     // checks antes de calcular precio final
     // Nos aseguramos que invitados es un numero
     if (isNaN(invitados) ) {
@@ -268,17 +273,6 @@ calc.addEventListener("click", () => {
 });
 
 ////////////////////////////////////////////////////////////////////////
-
-
-let input_dirs = document.getElementById("Inp_direccion")
-
-
-
-let butt_calc_delivery = document.getElementById("calc_delivery")
-
-////////////////////////////////////////////////////////////////////////
-
-
 
 
 // let tamanioChica = document.getElementById("button1");

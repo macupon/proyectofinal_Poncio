@@ -17,30 +17,8 @@ enviarForm.addEventListener("click", () => {
     idname.value === "" && arrayForm.push(idname.placeholder);
     idemail.value === "" && arrayForm.push(idemail.placeholder);
     idmess.value === "" && arrayForm.push(idmess.placeholder);
-    // if (idname.value === ""){
-    //     arrayForm.push(idname.placeholder)
-    // }
-    // if (idemail.value ===""){
-    //     arrayForm.push(idemail.placeholder)
-    // }
-    // if (idmess.value === "") {
-    //     arrayForm.push(idmess.placeholder)
-    // }
 
- 
-
-    arrayForm.length != 0 ? alert(`Completa los campos: ${arrayForm}`) : (contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #778beb");
-
+    arrayForm.length != 0 ? Swal.fire('Tiene que completar los siguientes campos: ' + arrayForm) : (contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #778beb", 
+                                                                        setTimeout(()=> {enviarForm.style = "background-color: #c44569"}, 2000))
+    
 })
-
-// arrayForm.length != 0 ? alert(`Completa los campos: ${arrayForm}`) : contactmilo.innerText = "Formulario Enviado!", enviarForm.style = "background-color: #f8a5c2";
-   // Pedimos que complete los campos vacios
-    // if (arrayForm.length != 0 ) {
-    //     alert(`Completa los campos: ${arrayForm}`);
-    // }
-
-    // Si la array se encuentra vacia al enviar el formulario, se modificara el color del boton "send" y el titulo de la form
-    // else {
-    //     contactmilo.innerText = "Formulario Enviado!"
-    //     enviarForm.style = "background-color: #f8a5c2"
-    // }

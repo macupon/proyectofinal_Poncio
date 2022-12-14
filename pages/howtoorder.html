@@ -94,9 +94,16 @@
         <p>For gifting, for sharing, or keeping all to yourself!</p>
       </div>
       <div class="delivery">
-        <h1>Cake Size</h1>
-        <div>
+        <div >
+          <p>Ingrese número de invitados</p>
+        </div>
+        <div class="inp_invitados_class">
           <input type="number" id="Inp_invitados" value="10">
+        </div>
+      </div>
+      <div class="delivery">
+        <div>
+          <p class="cake_size">Cake Size</p>
         </div>
         <div class="buttons">
           <input label="10x15" type="radio" name="Size" value="peque" checked id="but_10x15">
@@ -227,27 +234,23 @@
        </div>
       </div>  
       <div class="delivery">
-        <h1>Delivery Options</h1>
+        <div>
+          <p class="cake_size">Delivery Options</p>
+        </div>
         <div class="buttons">
           <input label="Pick Up" type="radio" name="delivery" value="pickup" id="butt_pick" checked>
           <input label="Delivery" type="radio" name="delivery" value="delivery" id="butt_del">
         </div>
         <div>
-          <input type="text" id="Inp_direccion" enabled>
-        </div>
-        <div>
-          <input type="button" name="calculate" value="calcular delivery" id="calc_delivery">
-        </div>
-        <div>
           <p id="text_PrecioDelivery"></p>
         </div>
       </div>
-      <div>
-        <input label="calculate" type="button" name="calculate" value="calculate" id="calc">
+      <div class="delivery_class">
+        <input label="calculate" type="button" name="calculate" value="calcular" id="calc">
       </div>
-      <div>
-        <p id="DKK_total"> 0 DKK</p>
-        <p id="EUR_total"> 0 EUR</p>
+      <div class="div_precio_final">
+        <p id="DKK_total" class="precio_final"> 0 DKK</p>
+        <p id="EUR_total" class="precio_final"> 0 EUR</p>
       </div>
       <div data-aos="fade-up" class="titulos">
         <h2>Anywhere, Anytime</h2>

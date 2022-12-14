@@ -176,13 +176,15 @@ body {
 .delivery {
   display: flex;
   align-items: center;
-  margin: 20px; }
-  .delivery h1 {
-    color: #000000;
-    font-family: 'bebas neue';
-    font-size: 30px;
-    font-weight: bold;
-    margin-left: 20px; }
+  align-self: center;
+  }
+
+.delivery p {
+  color: #000000;
+  font-family: 'bebas neue';
+  font-size: 30px;
+  font-weight: bold;
+  margin-left: 20px; }
 
 .buttons {
   padding: 8px;
@@ -190,16 +192,17 @@ body {
   border-radius: 4px;
   position: relative;
   width: fit-content; }
-  .buttons input {
-    appearance: none;
-    cursor: pointer;
-    border-radius: 3px;
-    padding: 10px 10px;
-    background: #a5b1c2;
-    color: #ececec;
-    font-size: 18px;
-    font-family: 'lato', sans-serif;
-    transition: all 0.1s; }
+  
+.buttons input {
+  appearance: none;
+  cursor: pointer;
+  border-radius: 3px;
+  padding: 10px 10px;
+  background: #a5b1c2;
+  color: #ececec;
+  font-size: 18px;
+  font-family: 'lato', sans-serif;
+  transition: all 0.1s; }
 
 .buttons input:checked {
   background: #cf6a87;
@@ -299,22 +302,50 @@ body {
   color: black; }
 
 
-  .rosa {
-    text-align: center;
-    border: none;
-    border-radius: 4px;
-    background-color: #250911;
-    color: white;
-    text-transform: uppercase;
-    padding: 10px 60px;
-    font-weight: 500;
-    letter-spacing: 2px;
-    font-family: 'bebas neue';
-    text-align: center;
-    font-size: 40px;
-    font-weight: 500;
+
+  .inp_invitados_class{
+    position: relative;
+  }
+  #Inp_invitados {
+    width: 60px;
+    margin: 10px;
+    margin-bottom: 25px;
+    font-family: 'lato', sans-serif;
+    font-weight: 1000;
+    border-width: 2px;
+    border-color:#254574;
+    border-radius: 5px;
+  }
+  #calc {
+  cursor: pointer;
+  border-radius: 5px;
+  padding: 10px 10px;
+  background: #c44569;
+  color: #ececec;
+  font-size: 18px;
+  font-family: 'lato', sans-serif;
+  text-transform: uppercase;
+  }
+  
+  .delivery_class {
+    display: flex;
+    justify-content: center;
   }
 
-
+  .cake_size {
+    margin-bottom: auto;
+  }
   
+  .precio_final{
+    font-size: 18px;
+    font-family: 'lato', sans-serif;
+    text-transform: uppercase;
+    font-weight: 1000;
+    margin: 10px;
+  }
+  .div_precio_final  {
+    display: flex;
+    justify-content: center;
+    margin: 20px;
   
+  }
